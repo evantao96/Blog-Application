@@ -9,9 +9,14 @@
     <%= post.content %>
   </p>
 
+    <p>
+    <strong>Publication Date:</strong>
+    <%= post.created_at %>
+  </p>
+
   <p>
-    <strong>User:</strong>
-    <%= post.user_id %>
+    <strong>Created By:</strong>
+    <%= post.user.email %>
   </p>
 
 </div>

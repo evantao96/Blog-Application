@@ -1,5 +1,12 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :check_signed_in
+
+  def check_signed_in
+    unless user_signed_in?
+      redirect_to root_url
+    end
+  end
 
   # GET /posts or /posts.json
   def index
