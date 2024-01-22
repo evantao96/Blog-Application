@@ -1,17 +1,17 @@
 <div id="<%= dom_id comment %>">
   <p>
-    <strong>Content:</strong>
+    <strong>Comment:</strong>
     <%= comment.content %>
   </p>
 
   <p>
-    <strong>Post:</strong>
-    <%= comment.post_id %>
+    <strong>By:</strong>
+    <%= comment.user.email %>
   </p>
 
   <p>
-    <strong>User:</strong>
-    <%= comment.user_id %>
+    <strong> Post:</strong>
+    <%= comment.post.content %>
   </p>
 
 </div>

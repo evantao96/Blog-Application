@@ -19,4 +19,27 @@
     <%= post.user.email %>
   </p>
 
+  <p>
+    <strong>Comments:</strong>
+    <% if post.comments.empty? %>
+      No comments yet! 
+    <% else %>
+      <ol>
+      <% post.comments.each do |c| %>
+        <p> <li> <%= c.content %>  
+          <% if current_user == c.user %>
+            <%= button_to "See comment details", post_comment_path(post_id: post.id, id: c.id), method: :get %>
+          <% end %>
+          </li> </p>
+        <p> <strong> Written By: </strong> 
+        <%= c.user.email %> </p>
+        <p> <strong> Timestamp: </strong> 
+        <%= c.created_at %> </p>
+      <% end %>
+      </ol>
+    <% end %>
+  </p>
+  <% if user_signed_in? %>
+    <%= button_to "Add comment", new_post_comment_path(post), method: :get %>
+  <% end %>
 </div>

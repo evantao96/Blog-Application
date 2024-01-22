@@ -1,9 +1,12 @@
 <h1>Welcome to Evan's Blog Application!</h1>
 <% if user_signed_in? %> 
  <div> Welcome <%= current_user.email %> </div> 
+ <br>
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+  <br>
   <%= button_to "Create a new blog post", new_post_path, method: :get %>
 <% else %>
   <%= button_to "Sign in to create a new blog post", new_user_session_path, method: :get %> 
 <% end %>
+<br>
 <%= button_to "See all blog posts", posts_path, method: :get %>
