@@ -6,7 +6,7 @@
   <br>
   <%= button_to "Create a new blog post", new_post_path, method: :get %>
 <% else %>
-  <%= button_to "Sign in to create a new blog post", new_user_session_path, method: :get %> 
+  <%= button_to "Sign in to create a new blog post and comment", new_user_session_path, method: :get %> 
 <% end %>
 <br>
 <%= button_to "See all blog posts", posts_path, method: :get %>
