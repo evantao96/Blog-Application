@@ -4,7 +4,9 @@
 
 <div>
   <%= link_to "Edit this comment", edit_post_comment_path(@post, @comment) %> |
-  <%= link_to "Back to post", post_path(@post) %>
-
+  <%= link_to "Back to all posts", posts_path %>
+</div>
+  <br>
+<div>
   <%= button_to "Destroy this comment", post_comment_path, method: :delete %>
 </div>

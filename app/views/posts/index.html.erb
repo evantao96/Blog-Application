@@ -3,12 +3,21 @@
 <h1>Posts</h1>
 
 <div id="posts">
+  <ol> 
   <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
-  <% end %>
-</div>
+  <hr>
+    <li> <%= render post %> </li>
+    <%= button_to "See post details", post_path(post), method: :get %>
+    <br>
+    <% if user_signed_in? %>
+      <%= button_to "Add comment", new_post_comment_path(post), method: :get %>
+    <% end %>
 
-<%= link_to "New post", new_post_path %>
+  <% end %>
+</ol>
+</div>
+<br>
+<div>
+<%= link_to "New post", new_post_path %> |
+<%= link_to "Back to home", root_path %>
+</div>
