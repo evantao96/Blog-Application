@@ -8,7 +8,7 @@ describe 'User' do
 
     it 'has many posts' do
       expect(user.posts).to include(post)
-      expect(post.user).to eql(user)
+      expect(post.user).to eq(user)
     end
 
     it 'deletes associated post' do
@@ -26,8 +26,8 @@ describe 'User' do
 
       expect(user.comments).to include(comment1)
       expect(user.comments).to include(comment2)
-      expect(comment1.user).to eql(user)
-      expect(comment2.user).to eql(user)
+      expect(comment1.user).to eq(user)
+      expect(comment2.user).to eq(user)
     end
 
     it 'deletes associated comment' do
@@ -38,6 +38,7 @@ describe 'User' do
   end
 
   describe 'validations' do
+
     it 'will not save without an email' do
       expect { User.create(password: 'password') }.to change(User, :count).by 0
     end
@@ -57,6 +58,7 @@ describe 'User' do
     it 'will not save with an email without a domain name' do
       expect { User.create(email: 'email@', password: 'password') }.to change(User, :count).by 0
     end
+    
   end
 
 end
