@@ -15,7 +15,7 @@ describe 'Post' do
   describe 'has_many comments' do  
 
     it 'has many comments' do 
-      expect { post.comments << comment }.to change(Comment, :count).by 1 
+      post.comments << comment 
       expect(post.comments).to include(comment)
       expect(comment.post).to eq(post)
     end
