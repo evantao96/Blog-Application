@@ -53,6 +53,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.1'
   gem 'capybara', '~> 3.39', '>= 3.39.2'
   gem 'database_cleaner', '~> 2.0', '>= 2.0.2'
+  gem 'rack_session_access', '~> 0.2.0'
   gem 'rubocop', '~> 1.59'
 end
 
@@ -65,9 +66,4 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-end
-
-group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "selenium-webdriver"
 end
