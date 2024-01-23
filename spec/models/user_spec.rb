@@ -4,7 +4,7 @@ describe 'User' do
   let!(:comment1) { post.comments.create(content: "first comment") }
   let!(:comment2) { post.comments.create(content: "second comment") }
 
-  describe 'has_many posts and has_many comments' do
+  describe 'has_many posts' do
 
     it 'has many posts' do
       expect(user.posts).to include(post)
@@ -15,6 +15,10 @@ describe 'User' do
       num_posts = user.posts.size * -1
       expect { user.destroy }.to change(Post, :count).by num_posts
     end
+
+  end
+
+  describe 'has_many comments' do
 
     it 'has many comments' do 
       user.comments << comment1
