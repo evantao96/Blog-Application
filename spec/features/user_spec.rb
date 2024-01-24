@@ -1,4 +1,4 @@
-describe 'devise features' do
+describe 'user features' do
   let!(:user) { User.create( email: 'test@test.com', password: 'test123') }
   
   describe 'welcome#index' do
@@ -80,11 +80,8 @@ describe 'devise features' do
         click_button 'Sign out'
       end
 
-      it 'loads a page successfully' do 
+      it 'loads the correct page successfully' do 
         expect(status_code).to eql(200)
-      end
-
-      it 'loads the correct page' do 
         expect(page).to have_text('Sign in')
         expect(page).to have_text('See all blog posts')
       end
@@ -106,6 +103,80 @@ describe 'devise features' do
       expect(page).to have_field('Password')
       expect(page).to have_field('Password confirmation')
     end
+
+    it 'loads the correct page successfully' do 
+      fill_in 'Email', with: 'foobar@test.com'
+      fill_in 'Password', with: 'test123'
+      fill_in 'Password confirmation', with: 'test123'
+      click_button 'Sign up'
+      expect(status_code).to eql(200)
+      expect(page).to have_text("Welcome foobar@test.com")
+      expect(page).to have_text("Sign out")
+      expect(page).to have_text("Create a new blog post")
+      expect(page).to have_text("See all blog posts")
+    end
+
+    it 'displays Email can\'t be blank message' do 
+      fill_in 'Password', with: 'test123'
+      fill_in 'Password confirmation', with: 'test123'
+      click_button 'Sign up'
+      expect(page).to have_text("Email can\'t be blank")  
+    end 
+
+    it 'displays Password can\'t be blank message' do 
+      fill_in 'Email', with: 'foobar@test.com'
+      fill_in 'Password confirmation', with: 'test123'
+      click_button 'Sign up'
+      expect(page).to have_text("Password can\'t be blank")  
+      expect(page).to have_text("Password confirmation doesn\'t match Password")  
+    end 
+
+    it 'displays Password confirmation doesn\'t match when password confirmation is blank message' do 
+      fill_in 'Email', with: 'foobar@test.com'
+      fill_in 'Password', with: 'test123'
+      click_button 'Sign up'
+      expect(page).to have_text("Password confirmation doesn\'t match Password")  
+    end 
+
+    it 'displays Password confirmation doesn\'t match when passwords don\'t match message' do 
+      fill_in 'Email', with: 'foobar@test.com'
+      fill_in 'Password', with: 'test123'
+      fill_in 'Password confirmation', with: 'test321'
+      click_button 'Sign up'
+      expect(page).to have_text("Password confirmation doesn\'t match Password")  
+    end 
+
+    it 'displays Password is too short message' do 
+      fill_in 'Email', with: 'foobar@test.com'
+      fill_in 'Password', with: 'test'
+      fill_in 'Password confirmation', with: 'test'
+      click_button 'Sign up'
+      expect(page).to have_text("Password is too short")  
+    end 
+
+    it 'checks if email address is already taken' do 
+      fill_in 'Email', with: 'test@test.com'
+      fill_in 'Password', with: 'test123'
+      fill_in 'Password confirmation', with: 'test123'
+      click_button 'Sign up'
+      expect(page).to have_text("Email has already been taken")  
+    end 
+
+    context 'when logged in' do
+      before :each do 
+        visit '/users/sign_in'
+        fill_in 'Email', with: 'test@test.com'
+        fill_in 'Password', with: 'test123'
+        click_button 'Log in'
+      end
+
+      it 'displays You are already signed in if attempting to sign up' do 
+        visit 'users/sign_up'
+        expect(status_code).to eql(200)
+        expect(page).to have_text('You are already signed in.')
+      end
+    end
+
   end
 
 end
