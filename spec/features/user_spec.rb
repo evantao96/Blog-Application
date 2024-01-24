@@ -43,6 +43,9 @@ describe 'user features' do
       expect(status_code).to eql(200)
       expect(page).to have_field('Email')
       expect(page).to have_field('Password')
+      expect(page).to have_text('Log in')
+      expect(page).to have_text('Sign up')
+      expect(page).to have_text('Forgot your password')
     end
 
     it 'does not already show signed in user' do
@@ -57,15 +60,25 @@ describe 'user features' do
         click_button 'Log in'
       end
 
-      it 'loads a page successfully if attempting to sign in again' do 
-        visit 'users/sign_in'
-        expect(status_code).to eql(200)
-      end
-
       it 'displays You are already signed in if attempting to sign in again' do 
         visit 'users/sign_in'
+        expect(status_code).to eql(200)
         expect(page).to have_text('You are already signed in.')
       end
+    end
+
+    it 'says Invalid Email or password when username is incorrect' do 
+      fill_in 'Email', with: 'incorrect@test.com'
+      fill_in 'Password', with: 'test123'
+      click_button 'Log in'
+      expect(page).to have_text('Invalid Email or password.')
+    end
+
+    it 'says Invalid Email or password when password is incorrect' do 
+      fill_in 'Email', with: 'test@test.com'
+      fill_in 'Password', with: 'incorrect123'
+      click_button 'Log in'
+      expect(page).to have_text('Invalid Email or password.')
     end
   end
 
@@ -177,6 +190,26 @@ describe 'user features' do
       end
     end
 
+  end
+
+  describe 'devise/passwords#new' do 
+    before :each do 
+      visit '/users/sign_in'
+      click_link 'Forgot your password?'
+    end
+
+    it 'loads the correct page successfully' do
+      expect(status_code).to eql(200)
+      expect(page).to have_field('Email')
+      expect(page).to have_button('Send me reset password instructions')
+    end
+
+    it 'redirects to the login page successfully' do
+      fill_in 'Email', with: 'test@test.com'
+      click_button('Send me reset password instructions')
+      expect(status_code).to eql(200)
+      expect(page).to have_text("Log in")
+    end
   end
 
 end
