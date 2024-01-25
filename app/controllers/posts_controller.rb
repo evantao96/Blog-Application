@@ -24,6 +24,12 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    respond_to do |format|
+      unless current_user.id == @post.user_id
+        format.html { redirect_to posts_url, notice: "You don't have access to this page." }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /posts or /posts.json
