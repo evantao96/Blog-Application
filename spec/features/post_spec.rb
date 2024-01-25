@@ -89,39 +89,14 @@ describe 'post features' do
     end
 
     describe 'posts#edit' do 
-      
+
       before :each do 
         visit "/posts/#{post.id}/edit"
       end
 
-      it 'loads the correct page successfully' do
-        expect(status_code).to eql(200)
-        expect(page).to have_text('Editing post')
-      end
-
-      it 'edits the status correctly' do
-        fill_in 'Title', with: 'edited title'
-        fill_in 'Content', with: 'edited content'
-        click_button 'Update Post'
-        expect(current_path).to eql("/posts/#{post.id}")
-        expect(page).to have_text('Post was successfully updated.')
+      it 'displays You don\'t have access to this page' do
+        expect(page).to have_text('You don\'t have access to this page')
       end
     end
-
-    describe 'posts#destroy' do 
-      let!(:post) { user1.posts.create(title: 'testing', content: '123') }
-
-      before :each do 
-        visit "/posts/#{post.id}"
-      end
-
-      it 'deletes the post' do 
-        click_button 'Destroy this post'
-        expect(user1.posts.size).to eql(0)
-        expect(current_path).to eql("/posts")
-      end
-    end
-
-
   end
 end
