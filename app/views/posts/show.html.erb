@@ -3,7 +3,7 @@
 <%= render @post %>
 <% if current_user == @post.user %>
   <div>
-  <%= button_to "Edit this post", edit_post_path(@post), method: :get %>
+  <%= button_to "Edit this post", edit_post_path(@post) %>
   <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
 <% end %>

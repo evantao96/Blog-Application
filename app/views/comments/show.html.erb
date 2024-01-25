@@ -1,12 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @comment %>
-
+<% if current_user == @comment.user %>
 <div>
-  <%= link_to "Edit this comment", edit_post_comment_path(@post, @comment) %> |
-  <%= link_to "Back to all posts", posts_path %>
+  <%= button_to "Edit this comment", edit_post_comment_path(@post, @comment) %> |
+  <%= button_to "Destroy this comment", post_comment_path, method: :delete %>
 </div>
+<% end %>
   <br>
 <div>
-  <%= button_to "Destroy this comment", post_comment_path, method: :delete %>
+  <%= link_to "Back to all posts", posts_path %>
 </div>

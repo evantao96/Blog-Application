@@ -24,7 +24,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    unless current_user.id == @post.user_id
+    unless current_user == @post.user
       redirect_to posts_url
     end
   end

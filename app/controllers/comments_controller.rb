@@ -12,13 +12,13 @@ class CommentsController < ApplicationController
   end
 
   # GET /comments/new
-  def new
+  def new   
     @comment = Comment.new
   end
 
   # GET /comments/1/edit
   def edit
-    unless current_user.id == @comment.user_id
+    unless current_user == @comment.user
       redirect_to posts_url
     end
   end

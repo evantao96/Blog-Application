@@ -53,7 +53,7 @@ describe 'post features' do
         expect(page).to have_text('Editing post')
       end
 
-      it 'edits the status correctly' do
+      it 'edits the post correctly' do
         fill_in 'Title', with: 'edited title'
         fill_in 'Content', with: 'edited content'
         click_button 'Update Post'
@@ -78,7 +78,6 @@ describe 'post features' do
   end
 
   context 'when logged into an account without post edit destroy privileges' do 
-
     let!(:post) { user1.posts.create(title: 'testing', content: '123') }
 
     before :each do 
@@ -88,13 +87,22 @@ describe 'post features' do
       click_button 'Log in'
     end
 
+    describe 'posts#show' do 
+
+      it 'does not show edit and destroy buttons' do 
+        visit "/posts/#{post.id}"
+        expect(page).not_to have_button('Edit this post')
+        expect(page).not_to have_button('Destroy this post')
+      end
+    end
+
     describe 'posts#edit' do 
 
       it 'redirects to the posts page' do
         visit "/posts/#{post.id}/edit"
-        expect(current_path).to eql("/posts")
+        expect(current_path).to eql('/posts')
       end
     end
-    
+
   end
 end
