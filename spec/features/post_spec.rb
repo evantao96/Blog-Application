@@ -90,13 +90,11 @@ describe 'post features' do
 
     describe 'posts#edit' do 
 
-      before :each do 
+      it 'redirects to the posts page' do
         visit "/posts/#{post.id}/edit"
-      end
-
-      it 'displays You don\'t have access to this page' do
-        expect(page).to have_text('You don\'t have access to this page')
+        expect(current_path).to eql("/posts")
       end
     end
+    
   end
 end
