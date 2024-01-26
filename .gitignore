@@ -37,4 +37,3 @@
 .dockerignore
 .gitattributes
 .ruby-version
-/config/credentials/production.key
