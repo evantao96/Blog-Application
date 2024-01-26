@@ -1,3 +1,9 @@
+# INSTRUCTIONS #
+
+This application has been containerized with Docker. You can run it by executing the following command: 
+
+`docker build -t blog . && docker run -p 3000:3000 blog`
+
 # Exercise Title: Blog Application #
 
 Description: The candidate is tasked with building a simple blog application using Ruby on Rails 7. The application should allow users to create, view, edit, and delete blog posts. Each blog post should have a title, content, and a publication date. Users should also be able to leave comments on blog posts.
